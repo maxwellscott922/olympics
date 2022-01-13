@@ -6,17 +6,21 @@ import org.strykeforce.deadeye.Point;
 import org.strykeforce.deadeye.TargetDataListener;
 import org.strykeforce.deadeye.UprightRectTargetData;
 
-public class DeadeyeF0 implements TargetDataListener<UprightRectTargetData> {
+public class DeadeyeH0 implements TargetDataListener<UprightRectTargetData> {
 
   private final Deadeye<UprightRectTargetData> deadeye;
-
-  public DeadeyeF0() {
-    deadeye = new Deadeye<>("F0", UprightRectTargetData.class);
+  public int DataX;
+  public int DataY;
+  public DeadeyeH0
+() {
+    deadeye = new Deadeye<>("H0", UprightRectTargetData.class);
     deadeye.setTargetDataListener(this);
+    
   }
 
-  public DeadeyeF0(NetworkTableInstance nti) {
-    deadeye = new Deadeye<>("F0", UprightRectTargetData.class, nti);
+  public DeadeyeH0
+(NetworkTableInstance nti) {
+    deadeye = new Deadeye<>("H0", UprightRectTargetData.class, nti);
     deadeye.setTargetDataListener(this);
   }
 
@@ -27,6 +31,11 @@ public class DeadeyeF0 implements TargetDataListener<UprightRectTargetData> {
   @Override
   public void onTargetData(UprightRectTargetData data) {
     Point center = data.center;
-    System.out.printf("x=%d, y=%d %n", center.x, center.y);
+    //System.out.printf("x=%d, y=%d %n", center.x, center.y);
+    DataX = center.x;
+    DataY = center.y;
   }
+
+ 
+  
 }

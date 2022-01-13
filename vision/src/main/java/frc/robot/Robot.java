@@ -8,7 +8,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.DeadeyeF0;
+import frc.robot.subsystems.DeadeyeH0;
+import edu.wpi.first.wpilibj.XboxController;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,18 +21,19 @@ import frc.robot.subsystems.DeadeyeF0;
 public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
-
+  private Command ShootCommand;
   private RobotContainer m_robotContainer;
 
   private NetworkTableInstance deadeyeNetworkTableInstance;
-  private DeadeyeF0 deadeyeF0;
+  private DeadeyeH0 DeadeyeH0;
+  
 
   public Robot() {
     // We are using both a simulated Deadeye unit and the robot simulator so create an additional
     // stand-alone instance of NetworkTables for Deadeye. Check with a mentor for serverName and
     // port parameters.
     deadeyeNetworkTableInstance = NetworkTableInstance.create();
-    deadeyeNetworkTableInstance.startClient("192.168.1.30", 1735);
+    deadeyeNetworkTableInstance.startClient("192.168.3.10", 1735);
   }
 
   /**
@@ -42,8 +45,10 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    
+    
     // Create a Deadeye F0 camera object with our stand-alone NetworkTables instance.
-    deadeyeF0 = new DeadeyeF0(deadeyeNetworkTableInstance);
+    DeadeyeH0 = new DeadeyeH0(deadeyeNetworkTableInstance);
   }
 
   /**
@@ -53,6 +58,8 @@ public class Robot extends TimedRobot {
    * <p>This runs after the mode specific periodic functions, but before LiveWindow and
    * SmartDashboard integrated updating.
    */
+  
+
   @Override
   public void robotPeriodic() {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
@@ -67,7 +74,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    deadeyeF0.setEnabled(false);
+    DeadeyeH0.setEnabled(false);
   }
 
   @Override
@@ -103,14 +110,16 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    deadeyeF0.setEnabled(true);
+    DeadeyeH0.setEnabled(true);
   }
 
   /**
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic()
+   {
+     
   }
 
   @Override
